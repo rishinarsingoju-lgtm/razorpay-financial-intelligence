@@ -35,3 +35,14 @@ test("phase 5C settlements screen uses list and detail data", () => {
   assert.match(page, /Settlement items/);
   assert.match(page, /Bank credits/);
 });
+
+test("phase 5D transaction chain uses the chain API", () => {
+  const page = readFileSync(new URL("../src/app/transactions/[paymentId]/chain/page.tsx", import.meta.url), "utf8");
+
+  assert.match(page, /getTransactionChain/);
+  assert.match(page, /Order/);
+  assert.match(page, /Payment/);
+  assert.match(page, /Settlement/);
+  assert.match(page, /Bank credit/);
+  assert.match(page, /No settlement returned/);
+});

@@ -57,6 +57,21 @@ export type SettlementDetail = SettlementRecord & {
   bank_transactions: SettlementBankTransaction[];
 };
 
+export type TransactionChain = {
+  order: { id: string; amount: number | string; status: string };
+  payment: {
+    id: string;
+    amount: number | string;
+    status: string;
+    reconciliation_status: string;
+    created_at?: string;
+  };
+  refunds: Array<{ id: string; amount: number | string; status: string }>;
+  fees: number | string;
+  settlements: Array<{ id: string; amount: number | string; status: string; expected_date: string | null }>;
+  bank_transactions: Array<{ id: string; amount: number | string; credited_date: string | null }>;
+};
+
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000";
 
 export async function getDashboardSummary(signal?: AbortSignal): Promise<DashboardSummary> {
@@ -116,4 +131,15 @@ export async function getSettlementDetail(settlementId: number, signal?: AbortSi
   const response = await fetch(`${apiBaseUrl}/api/settlements/${settlementId}`, { signal, cache: "no-store" });
   if (!response.ok) throw new Error(`Settlement detail request failed (${response.status})`);
   return response.json() as Promise<SettlementDetail>;
+}
+
+export async function getTransactionChain(paymentId: string, signal?: AbortSignal): Promise<TransactionChain> {
+  const response = await fetch(`${apiBaseUrl}/api/transactions/${encodeURIComponent(paymentId)}/chain`, {
+    signal,
+    cache: "no-store",
+  });
+  if (!response.ok) throw new Error(`Transaction chain request failed (${response.status})`);
+  const payload = await response.json() as TransactionChain | { error: string };
+  if ("error" in payload) throw new Error(payload.error);
+  return payload;
 }
