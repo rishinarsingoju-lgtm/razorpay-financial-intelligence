@@ -46,3 +46,13 @@ test("phase 5D transaction chain uses the chain API", () => {
   assert.match(page, /Bank credit/);
   assert.match(page, /No settlement returned/);
 });
+
+test("phase 5E copilot uses the backend ask contract", () => {
+  const page = readFileSync(new URL("../src/app/copilot/page.tsx", import.meta.url), "utf8");
+
+  assert.match(page, /askCopilot/);
+  assert.match(page, /suggestedQuestions/);
+  assert.match(page, /tool_calls_made/);
+  assert.match(page, /referenced_ids/);
+  assert.match(page, /transactions\/\$\{id\}\/chain/);
+});

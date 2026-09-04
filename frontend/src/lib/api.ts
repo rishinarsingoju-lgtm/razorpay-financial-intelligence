@@ -72,6 +72,17 @@ export type TransactionChain = {
   bank_transactions: Array<{ id: string; amount: number | string; credited_date: string | null }>;
 };
 
+export type CopilotToolCall = {
+  tool: string;
+  args: Record<string, unknown>;
+};
+
+export type CopilotResponse = {
+  answer: string;
+  tool_calls_made: CopilotToolCall[];
+  referenced_ids: string[];
+};
+
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000";
 
 export async function getDashboardSummary(signal?: AbortSignal): Promise<DashboardSummary> {
@@ -142,4 +153,14 @@ export async function getTransactionChain(paymentId: string, signal?: AbortSigna
   const payload = await response.json() as TransactionChain | { error: string };
   if ("error" in payload) throw new Error(payload.error);
   return payload;
+}
+
+export async function askCopilot(question: string): Promise<CopilotResponse> {
+  const response = await fetch(`${apiBaseUrl}/api/copilot/ask`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ question }),
+  });
+  if (!response.ok) throw new Error(`Copilot request failed (${response.status})`);
+  return response.json() as Promise<CopilotResponse>;
 }
