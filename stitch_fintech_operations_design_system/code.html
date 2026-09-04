@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Manrope:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-background": "#191c1e",
+          "on-error": "#ffffff",
+          "secondary-container": "#316bf3",
+          "surface-container-high": "#e6e8ea",
+          "background": "#f7f9fb",
+          "outline": "#76777d",
+          "on-tertiary-fixed-variant": "#38485d",
+          "surface-dim": "#d8dadc",
+          "surface-subtle": "#F1F5F9",
+          "tertiary-container": "#0b1c30",
+          "surface-container-low": "#f2f4f6",
+          "on-tertiary": "#ffffff",
+          "status-success-border": "#BBF7D0",
+          "on-surface-variant": "#45464d",
+          "on-secondary-fixed-variant": "#003ea8",
+          "on-error-container": "#93000a",
+          "text-muted": "#94A3B8",
+          "surface-card": "#FFFFFF",
+          "on-tertiary-fixed": "#0b1c30",
+          "surface-container-highest": "#e0e3e5",
+          "border-subtle": "#E2E8F0",
+          "status-warning-border": "#FDE68A",
+          "inverse-surface": "#2d3133",
+          "status-critical-bg": "#FEF2F2",
+          "tertiary-fixed-dim": "#b7c8e1",
+          "primary-fixed-dim": "#bec6e0",
+          "status-critical": "#DC2626",
+          "surface-tint": "#565e74",
+          "status-investigating-bg": "#EEF2FF",
+          "status-warning": "#D97706",
+          "inverse-on-surface": "#eff1f3",
+          "on-primary": "#ffffff",
+          "outline-variant": "#c6c6cd",
+          "on-secondary-fixed": "#00174b",
+          "on-primary-fixed-variant": "#3f465c",
+          "primary-fixed": "#dae2fd",
+          "status-warning-bg": "#FFFBEB",
+          "on-secondary": "#ffffff",
+          "text-secondary": "#475569",
+          "tertiary": "#000000",
+          "on-tertiary-container": "#75859d",
+          "secondary-fixed": "#dbe1ff",
+          "tertiary-fixed": "#d3e4fe",
+          "primary": "#000000",
+          "status-success": "#16A34A",
+          "inverse-primary": "#bec6e0",
+          "secondary": "#0051d5",
+          "on-surface": "#191c1e",
+          "status-investigating": "#6366F1",
+          "status-investigating-border": "#C7D2FE",
+          "text-primary": "#0F172A",
+          "secondary-fixed-dim": "#b4c5ff",
+          "surface-variant": "#e0e3e5",
+          "status-success-bg": "#F0FDF4",
+          "surface": "#f7f9fb",
+          "border-strong": "#CBD5E1",
+          "on-primary-container": "#7c839b",
+          "on-secondary-container": "#fefcff",
+          "error": "#ba1a1a",
+          "status-critical-border": "#FECACA",
+          "primary-container": "#131b2e",
+          "surface-container-lowest": "#ffffff",
+          "on-primary-fixed": "#131b2e",
+          "error-container": "#ffdad6",
+          "surface-bright": "#f7f9fb",
+          "surface-container": "#eceef0"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-lg": "1.5rem",
+          "layout-margin-mobile": "1rem",
+          "layout-margin-tablet": "1.5rem",
+          "space-xl": "2rem",
+          "space-sm": "0.75rem",
+          "space-2xl": "3rem",
+          "space-xxs": "0.25rem",
+          "space-3xl": "4rem",
+          "space-md": "1rem",
+          "layout-margin-desktop": "2rem",
+          "space-xs": "0.5rem",
+          "grid-gutter": "1.5rem"
+        },
+        "fontFamily": {
+          "body-md": [
+            "Inter"
+          ],
+          "label-reference": [
+            "JetBrains Mono"
+          ],
+          "body-sm": [
+            "Inter"
+          ],
+          "caption": [
+            "Inter"
+          ],
+          "headline-lg": [
+            "Manrope"
+          ],
+          "headline-sm": [
+            "Manrope"
+          ],
+          "body-lg": [
+            "Inter"
+          ],
+          "financial-metric-lg": [
+            "Manrope"
+          ],
+          "label-code": [
+            "JetBrains Mono"
+          ],
+          "headline-md": [
+            "Manrope"
+          ],
+          "financial-metric-md": [
+            "Manrope"
+          ],
+          "headline-xl": [
+            "Manrope"
+          ]
+        },
+        "fontSize": {
+          "body-md": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "fontWeight": "400"
+            }
+          ],
+          "label-reference": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "500"
+            }
+          ],
+          "body-sm": [
+            "13px",
+            {
+              "lineHeight": "18px",
+              "fontWeight": "400"
+            }
+          ],
+          "caption": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "letterSpacing": "0.01em",
+              "fontWeight": "500"
+            }
+          ],
+          "headline-lg": [
+            "24px",
+            {
+              "lineHeight": "32px",
+              "letterSpacing": "-0.015em",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-sm": [
+            "16px",
+            {
+              "lineHeight": "24px",
+              "letterSpacing": "-0.005em",
+              "fontWeight": "600"
+            }
+          ],
+          "body-lg": [
+            "16px",
+            {
+              "lineHeight": "24px",
+              "fontWeight": "400"
+            }
+          ],
+          "financial-metric-lg": [
+            "28px",
+            {
+              "lineHeight": "36px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "label-code": [
+            "11px",
+            {
+              "lineHeight": "14px",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-md": [
+            "20px",
+            {
+              "lineHeight": "28px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "600"
+            }
+          ],
+          "financial-metric-md": [
+            "20px",
+            {
+              "lineHeight": "28px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-xl": [
+            "32px",
+            {
+              "lineHeight": "40px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "700"
+            }
+          ]
+        }
+      }
+    }
+  };</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased min-h-screen"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full max-w-[1440px] mx-auto px-layout-margin-desktop flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md shrink-0"><img alt="ReconAI Brand Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VfIaPMzJfpVAE7VPR0IwXnpE18X5cBpGottJCXnjaE8RIECLnQxIUjhP0hyIE4GgGByyXhKSX1xmq99mEmLpwrMxRx1cdhQ9uRd7JqZTPP7nlAwVrbJY410VdAOxpyTVtOwpChp9bJMQxADo7i2spimIpBv85TE0deN7YyR0_OquKcGFsAmL4iHEpbgBm23T4M3Tm3DMIFts7jViWlEzZcPt64qwmplvamBLX1OHRCReR7TQXen7BJamU"/><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm tracking-tight text-text-primary">ReconAI</span><span class="font-label-reference text-label-reference px-space-xs py-space-xxs rounded-lg bg-surface-subtle text-text-secondary">B2B</span></div><div class="flex items-center gap-space-xxs"><span class="w-1.5 h-1.5 rounded-full bg-status-success inline-block"></span><span class="font-label-code text-label-code text-text-muted">Razorpay Connected • Live Sync 2m ago</span></div></div></div><nav class="hidden xl:flex items-center gap-space-xxs bg-surface-container-low p-space-xxs rounded-xl" data-active-classes="bg-primary-container text-on-primary font-body-sm rounded-lg"><a aria-current="page" class="px-space-sm py-space-xs transition-colors bg-primary-container text-on-primary font-body-sm rounded-lg" data-path="overview" href="#">Overview</a><a class="font-body-sm text-body-sm px-space-sm py-space-xs text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg" data-path="reconciliation" href="#">Reconciliation</a><a class="font-body-sm text-body-sm px-space-sm py-space-xs text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg" data-path="investigation" href="#">Investigation</a><a class="font-body-sm text-body-sm px-space-sm py-space-xs text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg" data-path="settlements" href="#">Settlements</a><a class="font-body-sm text-body-sm px-space-sm py-space-xs text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg" data-path="transactions" href="#">Transactions</a><a class="font-body-sm text-body-sm px-space-sm py-space-xs text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg" data-path="ai-copilot" href="#">AI Copilot</a></nav><div class="flex items-center gap-space-sm shrink-0"><div class="hidden md:flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-card rounded-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><span class="material-symbols-outlined text-text-muted text-[18px]">calendar_today</span><span class="font-label-reference text-label-reference text-text-secondary">Today: Oct 24, 2024</span></div><div class="hidden lg:flex items-center gap-space-xs px-space-sm py-space-xs bg-status-success-bg rounded-lg"><span class="w-2 h-2 rounded-full bg-status-success"></span><span class="font-label-reference text-label-reference text-status-success">Reconciliation Healthy • 99.4%</span></div><div class="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-card rounded-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col text-right"><span class="font-body-sm text-body-sm font-semibold text-text-primary leading-tight">Acme Retail Pvt Ltd</span><span class="font-label-code text-label-code text-text-muted">MID_92817420</span></div><span class="material-symbols-outlined text-text-muted text-[18px]">expand_more</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 min-h-screen bg-background"><div class="flex flex-col w-full">
+<div class="w-full max-w-[1440px] mx-auto px-layout-margin-desktop py-space-lg flex flex-col gap-space-lg">
+<!-- Sub-header operational context bar -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm bg-surface-card p-space-md rounded-xl shadow-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-subtle flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-[22px]">account_balance</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-text-primary">Executive Liquidity &amp; Recon Summary</span>
+<span class="font-label-code text-label-code px-space-xs py-space-xxs rounded bg-surface-subtle text-text-secondary">CYCLE: T+1 UTC+05:30</span>
+</div>
+<span class="font-caption text-caption text-text-muted">Real-time ledger matching engine across Razorpay, UPI Rails &amp; Corporate Bank Nodes</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-subtle text-text-primary hover:bg-surface-container-high transition-colors font-body-sm text-body-sm font-medium" type="button">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+          Filter Range: Today
+        </button>
+<button class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-primary text-on-primary hover:bg-primary-container transition-colors font-body-sm text-body-sm font-semibold shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+          Force Reconciliation Run
+        </button>
+</div>
+</div>
+<!-- 1. Executive Summary Strip -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-space-md">
+<!-- Payment Volume -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<span class="font-label-reference text-label-reference text-text-muted tracking-wider uppercase">Payment Volume</span>
+<span class="font-label-code text-label-code px-space-xs py-space-xxs rounded bg-status-success-bg text-status-success font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[12px]">trending_up</span>+8.2%
+          </span>
+</div>
+<div class="mt-space-sm">
+<div class="font-financial-metric-lg text-financial-metric-lg text-text-primary">₹42,85,400</div>
+<div class="font-caption text-caption text-text-secondary mt-space-xxs flex items-center gap-1">
+<span class="material-symbols-outlined text-text-muted text-[14px]">receipt_long</span>
+            3,412 payments captured
+          </div>
+</div>
+<div class="w-full bg-surface-subtle h-1 rounded-full mt-space-sm overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 100%;"></div>
+</div>
+</div>
+<!-- Expected Settlement -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<span class="font-label-reference text-label-reference text-text-muted tracking-wider uppercase">Expected Payout</span>
+<span class="font-label-code text-label-code px-space-xs py-space-xxs rounded bg-surface-subtle text-text-secondary">Gross - MDR</span>
+</div>
+<div class="mt-space-sm">
+<div class="font-financial-metric-lg text-financial-metric-lg text-text-primary">₹41,92,350</div>
+<div class="font-caption text-caption text-text-secondary mt-space-xxs flex items-center gap-1">
+<span class="material-symbols-outlined text-text-muted text-[14px]">percent</span>
+            Fees deducted: <span class="font-label-code text-label-code font-medium">₹93,050</span>
+</div>
+</div>
+<div class="w-full bg-surface-subtle h-1 rounded-full mt-space-sm overflow-hidden">
+<div class="bg-secondary-container h-full rounded-full" style="width: 97.8%;"></div>
+</div>
+</div>
+<!-- Settled Amount -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<span class="font-label-reference text-label-reference text-text-muted tracking-wider uppercase">Bank Settled</span>
+<span class="font-label-code text-label-code px-space-xs py-space-xxs rounded bg-status-success-bg text-status-success font-medium">Verified</span>
+</div>
+<div class="mt-space-sm">
+<div class="font-financial-metric-lg text-financial-metric-lg text-status-success">₹41,42,350</div>
+<div class="font-caption text-caption text-text-secondary mt-space-xxs truncate">
+            HDFC Bank <span class="font-label-code text-label-code">****4910</span>
+</div>
+</div>
+<div class="w-full bg-surface-subtle h-1 rounded-full mt-space-sm overflow-hidden">
+<div class="bg-status-success h-full rounded-full" style="width: 98.8%;"></div>
+</div>
+</div>
+<!-- Pending / Delayed -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<span class="font-label-reference text-label-reference text-text-muted tracking-wider uppercase">Variance / Delayed</span>
+<span class="font-label-code text-label-code px-space-xs py-space-xxs rounded bg-status-critical-bg text-status-critical font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[12px]">schedule</span>&gt;24h
+          </span>
+</div>
+<div class="mt-space-sm">
+<div class="font-financial-metric-lg text-financial-metric-lg text-status-critical">₹50,000</div>
+<div class="font-caption text-caption text-text-secondary mt-space-xxs">
+            1 critical batch withheld
+          </div>
+</div>
+<div class="w-full bg-surface-subtle h-1 rounded-full mt-space-sm overflow-hidden">
+<div class="bg-status-critical h-full rounded-full" style="width: 1.2%;"></div>
+</div>
+</div>
+<!-- Reconciliation Health -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<span class="font-label-reference text-label-reference text-text-muted tracking-wider uppercase">Recon Integrity</span>
+<span class="w-2 h-2 rounded-full bg-status-success animate-pulse mt-1"></span>
+</div>
+<div class="mt-space-sm">
+<div class="font-financial-metric-lg text-financial-metric-lg text-text-primary">98.8%</div>
+<div class="font-caption text-caption text-text-secondary mt-space-xxs">
+            Matched <span class="font-label-code text-label-code">₹41.42L / ₹41.92L</span>
+</div>
+</div>
+<div class="w-full bg-surface-subtle h-1 rounded-full mt-space-sm overflow-hidden">
+<div class="bg-text-primary h-full rounded-full" style="width: 98.8%;"></div>
+</div>
+</div>
+</div>
+<!-- 2. Prominent "Needs Immediate Attention" Alert Section (Exception-First UX) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between px-space-xxs">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-status-critical"></span>
+<h2 class="font-headline-md text-headline-md text-text-primary">Needs Immediate Attention</h2>
+<span class="font-label-reference text-label-reference px-space-xs py-space-xxs rounded bg-status-critical-bg text-status-critical font-semibold">4 Active Exceptions</span>
+</div>
+<span class="font-label-code text-label-code text-text-muted">Impact Total: ₹66,700 Unreconciled</span>
+</div>
+<!-- Primary Demo Story Hero Card -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-space-md relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-status-critical"></div>
+<div class="flex items-start gap-space-md pl-space-xs">
+<div class="w-12 h-12 rounded-lg bg-status-critical-bg text-status-critical flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[26px]">error</span>
+</div>
+<div class="flex flex-col gap-space-xxs max-w-3xl">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-label-reference text-label-reference px-space-xs py-space-xxs rounded bg-status-critical-bg text-status-critical font-semibold uppercase">Payout Withheld</span>
+<span class="font-label-code text-label-code px-space-xs py-space-xxs rounded bg-surface-subtle text-text-secondary">Batch #SET-884219</span>
+<span class="font-label-code text-label-code text-text-muted">Detected 2h 14m ago • Razorpay Core Node</span>
+</div>
+<div class="font-headline-sm text-headline-sm text-text-primary">
+              ₹50,000 Settlement Missing on HDFC Node
+            </div>
+<p class="font-body-md text-body-md text-text-secondary">
+              Payment batch captured via UPI gateway successfully, but scheduled settlement payout is withheld due to a downstream bank gateway timeout during final ledger confirmation.
+            </p>
+<div class="flex items-center gap-space-md mt-space-xxs font-label-code text-label-code text-text-muted">
+<span>Expected: <strong class="text-text-primary font-semibold">₹50,000.00</strong></span>
+<span>•</span>
+<span>Disbursed: <strong class="text-status-critical font-semibold">₹0.00</strong></span>
+<span>•</span>
+<span>UTR: <span class="text-text-secondary">UTR-PENDING-TIMEOUT</span></span>
+</div>
+</div>
+</div>
+<div class="flex sm:flex-row lg:flex-col items-stretch sm:items-center lg:items-end gap-space-xs shrink-0 pl-space-xs lg:pl-0">
+<button class="inline-flex items-center justify-center gap-space-xs px-space-md py-space-xs rounded bg-primary text-on-primary hover:bg-primary-container transition-colors font-body-sm text-body-sm font-semibold shadow-sm" type="button">
+            Investigate Chain
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<button class="inline-flex items-center justify-center gap-space-xs px-space-md py-space-xs rounded bg-surface-subtle text-secondary hover:bg-secondary-fixed transition-colors font-body-sm text-body-sm font-semibold" type="button">
+<span class="material-symbols-outlined text-[16px]">psychology</span>
+            Ask AI Copilot
+          </button>
+</div>
+</div>
+<!-- Secondary Exceptions Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Exception 1 -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between group hover:bg-surface-container-lowest transition-colors">
+<div class="flex flex-col gap-space-xxs">
+<div class="flex items-center justify-between">
+<span class="font-label-reference text-label-reference px-space-xs py-space-xxs rounded bg-status-warning-bg text-status-warning font-semibold">Fee Mismatch</span>
+<span class="font-label-code text-label-code text-text-muted">Batch #TX-9021</span>
+</div>
+<div class="font-headline-sm text-headline-sm text-text-primary mt-space-xs">₹12,500 Amex Overcharge</div>
+<p class="font-body-sm text-body-sm text-text-secondary">MDR applied at 2.40% instead of negotiated commercial rate 1.85% across 42 card orders.</p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between bg-surface-subtle/50 px-space-sm py-space-xs rounded">
+<span class="font-label-code text-label-code text-status-warning font-medium">Variance: +₹1,840</span>
+<a class="font-body-sm text-body-sm text-secondary hover:underline font-semibold flex items-center gap-0.5" href="#">
+              Review <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Exception 2 -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between group hover:bg-surface-container-lowest transition-colors">
+<div class="flex flex-col gap-space-xxs">
+<div class="flex items-center justify-between">
+<span class="font-label-reference text-label-reference px-space-xs py-space-xxs rounded bg-status-warning-bg text-status-warning font-semibold">Bank Delayed</span>
+<span class="font-label-code text-label-code text-text-muted">3 Payouts</span>
+</div>
+<div class="font-headline-sm text-headline-sm text-text-primary mt-space-xs">₹1,45,000 Pending Ack</div>
+<p class="font-body-sm text-body-sm text-text-secondary">Razorpay marked settled; target nodal bank ICICI processing confirmation queue lagging 4h.</p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between bg-surface-subtle/50 px-space-sm py-space-xs rounded">
+<span class="font-label-code text-label-code text-text-secondary font-medium">Node: ICICI_0042</span>
+<a class="font-body-sm text-body-sm text-secondary hover:underline font-semibold flex items-center gap-0.5" href="#">
+              Ping UTR <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Exception 3 -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between group hover:bg-surface-container-lowest transition-colors">
+<div class="flex flex-col gap-space-xxs">
+<div class="flex items-center justify-between">
+<span class="font-label-reference text-label-reference px-space-xs py-space-xxs rounded bg-status-investigating-bg text-status-investigating font-semibold">Missing Token</span>
+<span class="font-label-code text-label-code text-text-muted">2 Payments</span>
+</div>
+<div class="font-headline-sm text-headline-sm text-text-primary mt-space-xs">₹4,200 Orphaned Inflow</div>
+<p class="font-body-sm text-body-sm text-text-secondary">UPI inbound transfers received into VPA without corresponding e-commerce checkout session ID.</p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between bg-surface-subtle/50 px-space-sm py-space-xs rounded">
+<span class="font-label-code text-label-code text-status-investigating font-medium">Auto-Tagging AI Active</span>
+<a class="font-body-sm text-body-sm text-secondary hover:underline font-semibold flex items-center gap-0.5" href="#">
+              Resolve <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. Reconciliation Velocity & Cash Flow Trend (7-Day Visual Data Pane) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+<div class="lg:col-span-8 bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs mb-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<h3 class="font-headline-md text-headline-md text-text-primary">Reconciliation Velocity &amp; Cash Flow</h3>
+<span class="font-label-reference text-label-reference px-space-xs py-space-xxs rounded bg-surface-subtle text-text-secondary">7-Day Rolling</span>
+</div>
+<span class="font-caption text-caption text-text-muted">Comparison of Expected Inflow vs Validated Settlement Credits</span>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs font-label-reference text-label-reference text-text-secondary">
+<span class="w-3 h-3 rounded-sm bg-text-primary inline-block"></span> Expected
+            </div>
+<div class="flex items-center gap-space-xs font-label-reference text-label-reference text-text-secondary">
+<span class="w-3 h-3 rounded-sm bg-status-success inline-block"></span> Settled
+            </div>
+<div class="flex items-center gap-space-xs font-label-reference text-label-reference text-text-secondary">
+<span class="w-3 h-3 rounded-sm bg-status-critical inline-block"></span> Discrepancy
+            </div>
+</div>
+</div>
+<!-- SVG Financial Trend Visualizer -->
+<div class="w-full h-64 relative flex items-end">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 700 200">
+<!-- Grid Lines -->
+<line stroke="#F1F5F9" stroke-width="1" x1="0" x2="700" y1="30" y2="30"></line>
+<line stroke="#F1F5F9" stroke-width="1" x1="0" x2="700" y1="80" y2="80"></line>
+<line stroke="#F1F5F9" stroke-width="1" x1="0" x2="700" y1="130" y2="130"></line>
+<line stroke="#E2E8F0" stroke-width="1" x1="0" x2="700" y1="180" y2="180"></line>
+<!-- Settled Area Fill -->
+<path d="M 20 120 L 120 100 L 230 110 L 340 70 L 450 85 L 560 55 L 670 95 L 670 180 L 20 180 Z" fill="#F0FDF4" opacity="0.6"></path>
+<!-- Expected Line (Neutral Slate / Dark Navy) -->
+<polyline fill="none" points="20,115 120,95 230,105 340,65 450,80 560,50 670,60" stroke="#0F172A" stroke-linejoin="round" stroke-width="2.5"></polyline>
+<!-- Settled Line (Forest Green) -->
+<polyline fill="none" points="20,120 120,100 230,110 340,70 450,85 560,55 670,95" stroke="#16A34A" stroke-linejoin="round" stroke-width="2"></polyline>
+<!-- Difference Delta Nodes -->
+<circle cx="20" cy="120" fill="#16A34A" r="3.5"></circle>
+<circle cx="120" cy="100" fill="#16A34A" r="3.5"></circle>
+<circle cx="230" cy="110" fill="#16A34A" r="3.5"></circle>
+<circle cx="340" cy="70" fill="#16A34A" r="3.5"></circle>
+<circle cx="450" cy="85" fill="#16A34A" r="3.5"></circle>
+<circle cx="560" cy="55" fill="#16A34A" r="3.5"></circle>
+<!-- Today's Break Alert Point -->
+<circle cx="670" cy="60" fill="#0F172A" r="4.5"></circle>
+<circle cx="670" cy="95" fill="#DC2626" r="5"></circle>
+<line stroke="#DC2626" stroke-dasharray="3 3" stroke-width="2" x1="670" x2="670" y1="60" y2="95"></line>
+</svg>
+</div>
+<!-- Axis Labels -->
+<div class="flex justify-between items-center pt-space-xs font-label-code text-label-code text-text-muted">
+<span>Oct 18 (₹38.2L)</span>
+<span>Oct 19 (₹44.1L)</span>
+<span>Oct 20 (₹39.8L)</span>
+<span>Oct 21 (₹51.2L)</span>
+<span>Oct 22 (₹46.5L)</span>
+<span>Oct 23 (₹55.0L)</span>
+<span class="text-status-critical font-semibold">Today (Oct 24 - ₹50k Break)</span>
+</div>
+</div>
+<!-- Right Bento Insight Panel -->
+<div class="lg:col-span-4 flex flex-col gap-space-md">
+<!-- Settlement Pipeline Status -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm flex-1">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-text-primary">Pipeline Status</span>
+<span class="font-label-reference text-label-reference text-text-muted">Cycle 24H</span>
+</div>
+<div class="space-y-space-xs">
+<div class="p-space-xs bg-surface-subtle rounded flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-status-success">check_circle</span>
+<span class="font-body-sm text-body-sm text-text-primary font-medium">Batch 1 (UPI Morning)</span>
+</div>
+<span class="font-label-code text-label-code text-text-secondary">₹18,20,400</span>
+</div>
+<div class="p-space-xs bg-surface-subtle rounded flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-status-success">check_circle</span>
+<span class="font-body-sm text-body-sm text-text-primary font-medium">Batch 2 (Cards Midday)</span>
+</div>
+<span class="font-label-code text-label-code text-text-secondary">₹14,92,950</span>
+</div>
+<div class="p-space-xs bg-status-critical-bg rounded flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-status-critical">warning</span>
+<span class="font-body-sm text-body-sm text-status-critical font-medium">Batch 3 (UPI Afternoon)</span>
+</div>
+<span class="font-label-code text-label-code text-status-critical font-bold">₹50,000 PENDING</span>
+</div>
+<div class="p-space-xs bg-surface-subtle rounded flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-text-muted">hourglass_empty</span>
+<span class="font-body-sm text-body-sm text-text-secondary">Batch 4 (Evening Cutoff)</span>
+</div>
+<span class="font-label-code text-label-code text-text-muted">Est. ₹8,29,000</span>
+</div>
+</div>
+<!-- Merchant SLA Health Card -->
+<div class="mt-auto pt-space-xs bg-surface-container-low p-space-sm rounded-lg flex items-center justify-between">
+<div>
+<div class="font-label-reference text-label-reference text-text-muted">BANK SLA COMPLIANCE</div>
+<div class="font-financial-metric-md text-financial-metric-md text-text-primary">99.72%</div>
+</div>
+<div class="text-right">
+<div class="font-label-code text-label-code text-status-success">Razorpay FastSettlement</div>
+<div class="font-caption text-caption text-text-secondary">HDFC RTGS Node Online</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. Recent Settlement Activity Feed & Quick Audit Log -->
+<div class="bg-surface-card rounded-xl shadow-sm overflow-hidden">
+<div class="p-space-md flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs bg-surface-card">
+<div class="flex items-center gap-space-xs">
+<h3 class="font-headline-md text-headline-md text-text-primary">Recent Settlement Batches</h3>
+<span class="font-label-reference text-label-reference px-space-xs py-space-xxs rounded bg-surface-subtle text-text-secondary">Live Webhook Log</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<div class="relative">
+<input class="font-body-sm text-body-sm px-space-sm py-1.5 pl-8 rounded bg-surface-subtle text-text-primary placeholder:text-text-muted outline-none focus:bg-surface-card" placeholder="Search settlement / UTR..." type="text"/>
+<span class="material-symbols-outlined text-[16px] text-text-muted absolute left-2.5 top-2.5">search</span>
+</div>
+<button class="inline-flex items-center gap-space-xxs px-space-sm py-1.5 rounded bg-surface-subtle text-text-primary font-body-sm text-body-sm font-medium hover:bg-surface-container-high transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+            Export CSV
+          </button>
+</div>
+</div>
+<!-- Financial Data Table -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-subtle font-label-reference text-label-reference text-text-muted uppercase tracking-wider">
+<th class="py-space-xs px-space-md font-semibold">Settlement ID</th>
+<th class="py-space-xs px-space-md font-semibold">Gateway Source</th>
+<th class="py-space-xs px-space-md font-semibold text-right">Gross Transacted</th>
+<th class="py-space-xs px-space-md font-semibold text-right">Fee / MDR</th>
+<th class="py-space-xs px-space-md font-semibold text-right">Net Credited</th>
+<th class="py-space-xs px-space-md font-semibold">Status</th>
+<th class="py-space-xs px-space-md font-semibold">Timestamp</th>
+<th class="py-space-xs px-space-md font-semibold text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 font-body-sm text-body-sm text-text-primary">
+<!-- Row 1: Flagged Critical Failure -->
+<tr class="hover:bg-surface-subtle/70 transition-colors relative group bg-status-critical-bg/20">
+<td class="py-space-xs px-space-md font-label-code text-label-code font-semibold flex items-center gap-space-xs">
+<span class="w-1.5 h-6 bg-status-critical rounded-full inline-block"></span>
+                SET-884219
+              </td>
+<td class="py-space-xs px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="font-medium">Razorpay UPI</span>
+<span class="font-label-code text-label-code text-text-muted">#RZP-M-882</span>
+</div>
+</td>
+<td class="py-space-xs px-space-md text-right font-label-code text-label-code">₹50,000.00</td>
+<td class="py-space-xs px-space-md text-right font-label-code text-label-code text-text-secondary">₹0.00</td>
+<td class="py-space-xs px-space-md text-right font-label-code text-label-code font-bold text-status-critical">₹0.00 (Pending)</td>
+<td class="py-space-xs px-space-md">
+<span class="font-label-reference text-label-reference px-space-xs py-space-xxs rounded bg-status-critical-bg text-status-critical font-semibold inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-critical"></span> Flagged Delay
+                </span>
+</td>
+<td class="py-space-xs px-space-md font-label-code text-label-code text-text-muted">Today, 14:28:10</td>
+<td class="py-space-xs px-space-md text-right">
+<a class="inline-flex items-center gap-1 font-body-sm text-body-sm text-secondary hover:underline font-semibold" href="#">
+                  Inspect <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</td>
+</tr>
+<!-- Row 2: Standard Settled -->
+<tr class="hover:bg-surface-subtle/50 transition-colors">
+<td class="py-space-xs px-space-md font-label-code text-label-code font-medium">SET-884218</td>
+<td class="py-space-xs px-space-md">
+<div class="flex items-center gap-space-xs">
+<span>Razorpay Standard</span>
+<span class="font-label-code text-label-code text-text-muted">#RZP-M-882</span>
+</div>
+</td>
+<td class="py-space-xs px-space-md text-right font-label-code text-label-code">₹15,22,000.00</td>
+<td class="py-space-xs px-space-md text-right font-label-code text-label-code text-text-secondary">₹29,050.00</td>
+<td class="py-space-xs px-space-md text-right font-label-code text-label-code font-semibold text-text-primary">₹14,92,950.00</td>
+<td class="py-space-xs px-space-md">
+<span class="font-label-reference text-label-reference px-space-xs py-space-xxs rounded bg-status-success-bg text-status-success font-medium inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> Bank Credited
+                </span>
+</td>
+<td class="py-space-xs px-space-md font-label-code text-label-code text-text-muted">Today, 12:15:02</td>
+<td class="py-space-xs px-space-md text-right">
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-text-primary font-medium" href="#">View UTR</a>
+</td>
+</tr>
+<!-- Row 3: Settled with Warning / Variance Review -->
+<tr class="hover:bg-surface-subtle/50 transition-colors">
+<td class="py-space-xs px-space-md font-label-code text-label-code font-medium">TX-902140</td>
+<td class="py-space-xs px-space-md">
+<div class="flex items-center gap-space-xs">
+<span>Amex Gateway Route</span>
+<span class="font-label-code text-label-code text-text-muted">#AMX-DIRECT</span>
+</div>
+</td>
+<td class="py-space-xs px-space-md text-right font-label-code text-label-code">₹6,80,000.00</td>
+<td class="py-space-xs px-space-md text-right font-label-code text-label-code text-status-warning font-semibold">₹16,320.00 *</td>
+<td class="py-space-xs px-space-md text-right font-label-code text-label-code font-semibold text-text-primary">₹6,63,680.00</td>
+<td class="py-space-xs px-space-md">
+<span class="font-label-reference text-label-reference px-space-xs py-space-xxs rounded bg-status-warning-bg text-status-warning font-medium inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-warning"></span> Fee Variance
+                </span>
+</td>
+<td class="py-space-xs px-space-md font-label-code text-label-code text-text-muted">Today, 10:45:22</td>
+<td class="py-space-xs px-space-md text-right">
+<a class="font-body-sm text-body-sm text-secondary hover:underline font-semibold" href="#">Audit MDR</a>
+</td>
+</tr>
+<!-- Row 4: Settled Early Morning -->
+<tr class="hover:bg-surface-subtle/50 transition-colors">
+<td class="py-space-xs px-space-md font-label-code text-label-code font-medium">SET-884210</td>
+<td class="py-space-xs px-space-md">
+<div class="flex items-center gap-space-xs">
+<span>Razorpay Instant Payout</span>
+<span class="font-label-code text-label-code text-text-muted">#RZP-M-882</span>
+</div>
+</td>
+<td class="py-space-xs px-space-md text-right font-label-code text-label-code">₹18,50,400.00</td>
+<td class="py-space-xs px-space-md text-right font-label-code text-label-code text-text-secondary">₹30,000.00</td>
+<td class="py-space-xs px-space-md text-right font-label-code text-label-code font-semibold text-text-primary">₹18,20,400.00</td>
+<td class="py-space-xs px-space-md">
+<span class="font-label-reference text-label-reference px-space-xs py-space-xxs rounded bg-status-success-bg text-status-success font-medium inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> Bank Credited
+                </span>
+</td>
+<td class="py-space-xs px-space-md font-label-code text-label-code text-text-muted">Today, 08:30:19</td>
+<td class="py-space-xs px-space-md text-right">
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-text-primary font-medium" href="#">View UTR</a>
+</td>
+</tr>
+<!-- Row 5: Yesterday Final Settlement -->
+<tr class="hover:bg-surface-subtle/50 transition-colors">
+<td class="py-space-xs px-space-md font-label-code text-label-code font-medium">SET-883901</td>
+<td class="py-space-xs px-space-md">
+<div class="flex items-center gap-space-xs">
+<span>Razorpay Core Batch</span>
+<span class="font-label-code text-label-code text-text-muted">#RZP-M-882</span>
+</div>
+</td>
+<td class="py-space-xs px-space-md text-right font-label-code text-label-code">₹55,42,100.00</td>
+<td class="py-space-xs px-space-md text-right font-label-code text-label-code text-text-secondary">₹1,12,050.00</td>
+<td class="py-space-xs px-space-md text-right font-label-code text-label-code font-semibold text-text-primary">₹54,30,050.00</td>
+<td class="py-space-xs px-space-md">
+<span class="font-label-reference text-label-reference px-space-xs py-space-xxs rounded bg-status-success-bg text-status-success font-medium inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> Reconciled
+                </span>
+</td>
+<td class="py-space-xs px-space-md font-label-code text-label-code text-text-muted">Oct 23, 23:59:59</td>
+<td class="py-space-xs px-space-md text-right">
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-text-primary font-medium" href="#">Ledger Slip</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Quick Navigation -->
+<div class="p-space-md bg-surface-subtle/40 flex flex-col sm:flex-row items-center justify-between gap-space-xs text-text-secondary font-body-sm text-body-sm">
+<span class="font-label-code text-label-code">Showing 5 of 48 Settlement Batches this billing period</span>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-1 rounded bg-surface-card text-text-primary hover:bg-surface-subtle font-medium text-caption shadow-sm" type="button">Previous</button>
+<span class="font-label-code text-label-code px-space-xs">Page 1 / 10</span>
+<button class="px-space-sm py-1 rounded bg-surface-card text-text-primary hover:bg-surface-subtle font-medium text-caption shadow-sm" type="button">Next</button>
+</div>
+</div>
+</div>
+</div>
+</div></main><footer class="w-full bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] py-space-lg"><div class="w-full max-w-[1440px] mx-auto px-layout-margin-desktop flex flex-col md:flex-row items-center justify-between gap-space-sm text-on-surface-variant"><div class="flex items-center gap-space-sm"><span class="font-body-sm text-body-sm font-semibold text-text-primary">ReconAI Engine</span><span class="font-label-code text-label-code text-text-muted">v4.2.0-core</span><span class="font-label-code text-label-code text-text-muted">•</span><span class="font-label-code text-label-code text-status-success">Direct Webhook Ingestion Active</span></div><div class="flex items-center gap-space-lg"><span class="font-label-reference text-label-reference text-text-secondary">Razorpay Settlement Gateway Connected</span><span class="font-caption text-caption text-text-muted">© 2024 ReconAI Technologies Ltd. All rights reserved.</span></div></div></footer></body></html>
