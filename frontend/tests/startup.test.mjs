@@ -16,3 +16,12 @@ test("phase 5A dashboard is present", () => {
   assert.match(page, /Needs attention/);
   assert.match(page, /View all exceptions/);
 });
+
+test("phase 5B exceptions screen uses the exception API contract", () => {
+  const page = readFileSync(new URL("../src/app/exceptions/page.tsx", import.meta.url), "utf8");
+
+  assert.match(page, /getExceptions/);
+  assert.match(page, /updateExceptionStatus/);
+  assert.match(page, /Expected \/ actual/);
+  assert.match(page, /transactions\/\$\{exception.related_payment_id\}\/chain/);
+});
