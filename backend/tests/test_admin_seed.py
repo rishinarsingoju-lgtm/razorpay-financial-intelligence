@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+from unittest.mock import MagicMock, patch
+
 import pytest
 from fastapi.testclient import TestClient
-from unittest.mock import patch, MagicMock
 
-from app.main import app
+from app.core.seeder import seed_data
 from app.db.session import get_db
+from app.main import app
+from app.models.entities import Order, Payment
 
 client = TestClient(app)
 
@@ -78,3 +81,75 @@ def test_seed_endpoint(mock_rzp_client, mock_get_settings, mock_db):
     assert "stats" in data
     
     app.dependency_overrides.clear()
+
+
+class FakeResult:
+    def scalar_one_or_none(self):
+        return None
+
+    def scalars(self):
+        return self
+
+    def all(self):
+        return []
+
+
+class FakeSession:
+    def __init__(self):
+        self.objects = []
+        self.rollback_called = False
+
+    def execute(self, _statement):
+        return FakeResult()
+
+    def add(self, obj):
+        self.objects.append(obj)
+
+    def flush(self):
+        for index, obj in enumerate(self.objects, start=1):
+            if getattr(obj, "id", None) is None:
+                obj.id = index
+
+    def commit(self):
+        pass
+
+    def rollback(self):
+        self.rollback_called = True
+
+
+@patch("app.core.seeder.get_settings")
+@patch("app.core.seeder.razorpay.Client")
+def test_seed_creates_order_before_missing_payment_when_razorpay_is_empty(
+    mock_rzp_client, mock_get_settings
+):
+    mock_get_settings.return_value = MagicMock(
+        razorpay_key_id="test_key",
+        razorpay_key_secret="test_secret",
+    )
+    mock_rzp_client.return_value.payment.all.return_value = {"items": []}
+    db = FakeSession()
+
+    seed_data(db=db)
+
+    orders = [obj for obj in db.objects if isinstance(obj, Order)]
+    payments = [obj for obj in db.objects if isinstance(obj, Payment)]
+    missing_payment = next(payment for payment in payments if payment.razorpay_payment_id == "pay_miss_50k")
+    assert orders
+    assert missing_payment.order_id == orders[0].id
+    assert db.rollback_called is False
+
+
+@patch("app.core.seeder.get_settings")
+@patch("app.core.seeder.razorpay.Client")
+def test_seed_rolls_back_when_persistence_fails(mock_rzp_client, mock_get_settings):
+    mock_get_settings.return_value = MagicMock(
+        razorpay_key_id="test_key",
+        razorpay_key_secret="test_secret",
+    )
+    mock_rzp_client.return_value.payment.all.side_effect = RuntimeError("persistence setup failure")
+    db = FakeSession()
+
+    with pytest.raises(RuntimeError, match="persistence setup failure"):
+        seed_data(db=db)
+
+    assert db.rollback_called is True

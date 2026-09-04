@@ -31,6 +31,14 @@ from app.models.enums import (
 logger = logging.getLogger(__name__)
 
 def seed_data(db: Session, seed: int = 42) -> dict:
+    try:
+        return _seed_data(db=db, seed=seed)
+    except Exception:
+        db.rollback()
+        raise
+
+
+def _seed_data(db: Session, seed: int = 42) -> dict:
     settings = get_settings()
     if not settings.razorpay_key_id or not settings.razorpay_key_secret:
         raise ValueError("Razorpay credentials not found in settings")
@@ -260,9 +268,25 @@ def seed_data(db: Session, seed: int = 42) -> dict:
     
     missing_payment = db.execute(select(Payment).filter_by(razorpay_payment_id="pay_miss_50k")).scalar_one_or_none()
     if not missing_payment:
+        missing_order_id = inserted_payments[0].order_id if inserted_payments else None
+        if missing_order_id is None:
+            existing_order = db.execute(select(Order).limit(1)).scalar_one_or_none()
+            if existing_order is None:
+                existing_order = Order(
+                    razorpay_order_id="synth_ord_miss_50k",
+                    amount=Decimal("50000.00"),
+                    currency="INR",
+                    status=OrderStatus.PAID,
+                    created_at=datetime.now() - timedelta(days=3),
+                )
+                db.add(existing_order)
+                db.flush()
+                stats["orders_created"] += 1
+            missing_order_id = existing_order.id
+
         missing_payment = Payment(
             razorpay_payment_id="pay_miss_50k",
-            order_id=inserted_payments[0].order_id if inserted_payments else 1,
+            order_id=missing_order_id,
             amount=Decimal('50000.00'),
             fee=Decimal('1000.00'),
             tax=Decimal('180.00'),
