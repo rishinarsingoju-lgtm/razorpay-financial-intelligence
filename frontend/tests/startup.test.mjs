@@ -25,3 +25,13 @@ test("phase 5B exceptions screen uses the exception API contract", () => {
   assert.match(page, /Expected \/ actual/);
   assert.match(page, /transactions\/\$\{exception.related_payment_id\}\/chain/);
 });
+
+test("phase 5C settlements screen uses list and detail data", () => {
+  const page = readFileSync(new URL("../src/app/settlements/page.tsx", import.meta.url), "utf8");
+
+  assert.match(page, /getSettlements/);
+  assert.match(page, /getSettlementDetail/);
+  assert.match(page, /days_overdue/);
+  assert.match(page, /Settlement items/);
+  assert.match(page, /Bank credits/);
+});

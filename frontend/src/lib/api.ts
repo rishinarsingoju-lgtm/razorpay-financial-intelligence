@@ -26,6 +26,37 @@ export type ExceptionRecord = {
   related_settlement_id: string | null;
 };
 
+export type SettlementRecord = {
+  id: number;
+  razorpay_settlement_id: string;
+  amount: number | string;
+  status: "processed" | "processing" | "on_hold" | string;
+  expected_date: string | null;
+  processed_date: string | null;
+  days_overdue: number;
+  item_count: number;
+};
+
+export type SettlementItem = {
+  id: number;
+  entry_type: string;
+  amount: number | string;
+  payment_id: string | null;
+  refund_id: string | null;
+};
+
+export type SettlementBankTransaction = {
+  id: number;
+  amount: number | string;
+  credited_date: string | null;
+  bank_reference: string;
+};
+
+export type SettlementDetail = SettlementRecord & {
+  items: SettlementItem[];
+  bank_transactions: SettlementBankTransaction[];
+};
+
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000";
 
 export async function getDashboardSummary(signal?: AbortSignal): Promise<DashboardSummary> {
@@ -59,4 +90,30 @@ export async function updateExceptionStatus(exceptionId: number, status: string)
     method: "PATCH",
   });
   if (!response.ok) throw new Error(`Status update failed (${response.status})`);
+}
+
+export type SettlementFilters = {
+  status?: string;
+  date_from?: string;
+  date_to?: string;
+};
+
+export async function getSettlements(filters: SettlementFilters = {}, signal?: AbortSignal): Promise<SettlementRecord[]> {
+  const query = new URLSearchParams();
+  Object.entries(filters).forEach(([key, value]) => {
+    if (value) query.set(key, value);
+  });
+  const queryString = query.toString();
+  const response = await fetch(`${apiBaseUrl}/api/settlements/${queryString ? `?${queryString}` : ""}`, {
+    signal,
+    cache: "no-store",
+  });
+  if (!response.ok) throw new Error(`Settlements request failed (${response.status})`);
+  return response.json() as Promise<SettlementRecord[]>;
+}
+
+export async function getSettlementDetail(settlementId: number, signal?: AbortSignal): Promise<SettlementDetail> {
+  const response = await fetch(`${apiBaseUrl}/api/settlements/${settlementId}`, { signal, cache: "no-store" });
+  if (!response.ok) throw new Error(`Settlement detail request failed (${response.status})`);
+  return response.json() as Promise<SettlementDetail>;
 }
