@@ -17,3 +17,13 @@ def seed_database(db: Session = Depends(get_db)):
     """
     stats = seed_data(db=db)
     return {"message": "Seeding completed", "stats": stats}
+
+@router.post("/reconcile")
+def run_reconciliation_job(db: Session = Depends(get_db)):
+    """
+    DEV ONLY: Run the reconciliation engine manually.
+    Idempotently recalculates and creates exception records.
+    """
+    from app.core.reconciliation import run_reconciliation
+    stats = run_reconciliation(db=db)
+    return {"message": "Reconciliation completed", "stats": stats}
