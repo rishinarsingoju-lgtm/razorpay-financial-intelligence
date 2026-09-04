@@ -449,6 +449,8 @@ class TestCopilotEndpoint:
                 assert len(data["tool_calls_made"]) == 1
                 assert data["tool_calls_made"][0]["tool"] == "get_exceptions"
                 assert data["answer"] == "There are no open exceptions right now."
+                request_config = mock_client_instance.models.generate_content.call_args_list[0].kwargs["config"]
+                assert request_config.thinking_config.include_thoughts is False
         finally:
             app.dependency_overrides.clear()
 

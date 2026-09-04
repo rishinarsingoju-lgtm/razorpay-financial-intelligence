@@ -21,9 +21,18 @@ export type ExceptionRecord = {
   discrepancy: number | string | null;
   description: string;
   detected_at: string;
-  related_order_id: string | null;
-  related_payment_id: string | null;
-  related_settlement_id: string | null;
+  related_order_id: number | null;
+  related_payment_id: number | null;
+  related_settlement_id: number | null;
+};
+
+export type TransactionRecord = {
+  id: number;
+  razorpay_payment_id: string;
+  amount: number | string;
+  status: string;
+  reconciliation_status: string;
+  created_at: string;
 };
 
 export type SettlementRecord = {
@@ -83,7 +92,7 @@ export type CopilotResponse = {
   referenced_ids: string[];
 };
 
-const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000";
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "/backend-api";
 
 export async function getDashboardSummary(signal?: AbortSignal): Promise<DashboardSummary> {
   const response = await fetch(`${apiBaseUrl}/api/dashboard/summary`, { signal, cache: "no-store" });
@@ -103,12 +112,18 @@ export async function getExceptions(filters: ExceptionFilters = {}, signal?: Abo
     if (value) query.set(key, value);
   });
   const queryString = query.toString();
-  const response = await fetch(`${apiBaseUrl}/api/exceptions/${queryString ? `?${queryString}` : ""}`, {
+  const response = await fetch(`${apiBaseUrl}/api/exceptions${queryString ? `?${queryString}` : ""}`, {
     signal,
     cache: "no-store",
   });
   if (!response.ok) throw new Error(`Exceptions request failed (${response.status})`);
   return response.json() as Promise<ExceptionRecord[]>;
+}
+
+export async function getTransactions(signal?: AbortSignal): Promise<TransactionRecord[]> {
+  const response = await fetch(`${apiBaseUrl}/api/transactions`, { signal, cache: "no-store" });
+  if (!response.ok) throw new Error(`Transactions request failed (${response.status})`);
+  return response.json() as Promise<TransactionRecord[]>;
 }
 
 export async function updateExceptionStatus(exceptionId: number, status: string): Promise<void> {
@@ -130,7 +145,7 @@ export async function getSettlements(filters: SettlementFilters = {}, signal?: A
     if (value) query.set(key, value);
   });
   const queryString = query.toString();
-  const response = await fetch(`${apiBaseUrl}/api/settlements/${queryString ? `?${queryString}` : ""}`, {
+  const response = await fetch(`${apiBaseUrl}/api/settlements${queryString ? `?${queryString}` : ""}`, {
     signal,
     cache: "no-store",
   });

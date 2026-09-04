@@ -171,8 +171,63 @@ def _seed_data(db: Session, seed: int = 42) -> dict:
     if existing_settlements:
         return stats
 
-    today = date.today()
+    seed_now = datetime.now()
+    today = seed_now.date()
     captured_payments = [p for p in inserted_payments if p.status == PaymentStatus.CAPTURED.value]
+
+    synthetic_specs = {
+        "delayed": ("pay_synth_delayed", Decimal("12000.00"), Decimal("120.00")),
+        "partial": ("pay_synth_partial", Decimal("15000.00"), Decimal("150.00")),
+        "duplicate": ("pay_synth_duplicate", Decimal("18000.00"), Decimal("180.00")),
+        "fee_mismatch": ("pay_synth_fee_mismatch", Decimal("22000.00"), Decimal("220.00")),
+        "bank_mismatch": ("pay_synth_bank_mismatch", Decimal("26000.00"), Decimal("260.00")),
+    }
+    clean_specs = [
+        (f"pay_synth_clean_{index:02d}", Decimal(str(8000 + index * 1000)), Decimal("80.00"))
+        for index in range(1, 11)
+    ]
+
+    def ensure_synthetic_payment(payment_id, amount, fee, created_at):
+        order_id = f"synth_ord_{payment_id.removeprefix('pay_')}"
+        order_obj = db.execute(select(Order).filter_by(razorpay_order_id=order_id)).scalar_one_or_none()
+        if order_obj is None:
+            order_obj = Order(
+                razorpay_order_id=order_id,
+                amount=amount,
+                currency="INR",
+                status=OrderStatus.PAID,
+                created_at=created_at,
+            )
+            db.add(order_obj)
+            db.flush()
+            stats["orders_created"] += 1
+
+        payment_obj = db.execute(select(Payment).filter_by(razorpay_payment_id=payment_id)).scalar_one_or_none()
+        if payment_obj is None:
+            payment_obj = Payment(
+                razorpay_payment_id=payment_id,
+                order_id=order_obj.id,
+                amount=amount,
+                fee=fee,
+                tax=Decimal("0.00"),
+                status=PaymentStatus.CAPTURED,
+                method="card",
+                created_at=created_at,
+            )
+            db.add(payment_obj)
+            db.flush()
+            stats["payments_created"] += 1
+
+        fee_parts = ((FeeType.GATEWAY_FEE, fee), (FeeType.GST, Decimal("0.00")))
+        for fee_type, fee_amount in fee_parts:
+            existing_fee = db.execute(
+                select(Fee).filter_by(payment_id=payment_obj.id, type=fee_type)
+            ).scalar_one_or_none()
+            if existing_fee is None:
+                db.add(Fee(payment_id=payment_obj.id, type=fee_type, amount=fee_amount))
+                stats["fees_created"] += 1
+        db.flush()
+        return payment_obj
 
     def create_settlement_for_payment(payment, settlement_type="clean"):
         expected_amount = payment.amount - payment.fee
@@ -209,7 +264,7 @@ def _seed_data(db: Session, seed: int = 42) -> dict:
         si = SettlementItem(
             settlement_id=s.id,
             payment_id=payment.id,
-            amount=payment.amount,
+            amount=si_amount if settlement_type == "partial" else payment.amount,
             entry_type=SettlementItemEntryType.PAYMENT
         )
         db.add(si)
@@ -257,54 +312,48 @@ def _seed_data(db: Session, seed: int = 42) -> dict:
             db.add(bt)
             stats["bank_transactions_created"] += 1
 
-    anomalies = [
-        "delayed", 
-        "missing", 
-        "partial", 
-        "duplicate", 
-        "fee_mismatch", 
-        "bank_mismatch"
-    ]
-    
     missing_payment = db.execute(select(Payment).filter_by(razorpay_payment_id="pay_miss_50k")).scalar_one_or_none()
     if not missing_payment:
-        missing_order_id = inserted_payments[0].order_id if inserted_payments else None
-        if missing_order_id is None:
-            existing_order = db.execute(select(Order).limit(1)).scalar_one_or_none()
-            if existing_order is None:
-                existing_order = Order(
-                    razorpay_order_id="synth_ord_miss_50k",
-                    amount=Decimal("50000.00"),
-                    currency="INR",
-                    status=OrderStatus.PAID,
-                    created_at=datetime.now() - timedelta(days=3),
-                )
-                db.add(existing_order)
-                db.flush()
-                stats["orders_created"] += 1
-            missing_order_id = existing_order.id
-
-        missing_payment = Payment(
-            razorpay_payment_id="pay_miss_50k",
-            order_id=missing_order_id,
-            amount=Decimal('50000.00'),
-            fee=Decimal('1000.00'),
-            tax=Decimal('180.00'),
-            status=PaymentStatus.CAPTURED,
-            method="card",
-            created_at=datetime.now() - timedelta(days=3)
+        missing_payment = ensure_synthetic_payment(
+            "pay_miss_50k",
+            Decimal("50000.00"),
+            Decimal("0.00"),
+            datetime.now() - timedelta(days=3),
         )
-        db.add(missing_payment)
-        db.flush()
-        stats["payments_created"] += 1
-    
-    captured_payments.insert(0, missing_payment)
-    
+    captured_payments = [missing_payment] + [
+        payment for payment in captured_payments if payment.id != missing_payment.id
+    ]
+
+    anomaly_types = list(synthetic_specs)
+    for anomaly_type in anomaly_types[len(captured_payments) - 1:]:
+        payment_id, amount, fee = synthetic_specs[anomaly_type]
+        captured_payments.append(
+            ensure_synthetic_payment(
+                payment_id,
+                amount,
+                fee,
+                seed_now,
+            )
+        )
+
+    target_demo_payment_count = 16
+    for payment_id, amount, fee in clean_specs:
+        if len(captured_payments) >= target_demo_payment_count:
+            break
+        captured_payments.append(
+            ensure_synthetic_payment(
+                payment_id,
+                amount,
+                fee,
+                seed_now,
+            )
+        )
+
     for i, p in enumerate(captured_payments):
         if i == 0:
             create_settlement_for_payment(p, "missing")
-        elif i <= 5 and (i-1) < len(anomalies) and anomalies[i-1] != "missing":
-            create_settlement_for_payment(p, anomalies[i-1])
+        elif i <= len(anomaly_types):
+            create_settlement_for_payment(p, anomaly_types[i - 1])
         else:
             create_settlement_for_payment(p, "clean")
 

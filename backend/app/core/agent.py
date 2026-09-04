@@ -223,12 +223,13 @@ def run_copilot(question: str, db: Any) -> dict[str, Any]:
     max_iterations = 10
     for _ in range(max_iterations):
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
+            model="gemini-3.6-flash",
             contents=contents,
             config=types.GenerateContentConfig(
                 system_instruction=_SYSTEM_PROMPT,
                 tools=[tools],
                 temperature=0.0,
+                thinking_config=types.ThinkingConfig(include_thoughts=False),
             ),
         )
 
