@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Razorpay Financial Intelligence",
-  description: "Phase 1 application shell",
+  description: "Financial operations overview for Razorpay settlements and reconciliation.",
 };
 
 export default function RootLayout({

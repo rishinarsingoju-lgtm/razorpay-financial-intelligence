@@ -9,9 +9,10 @@ test("frontend package exposes startup checks", () => {
   assert.equal(packageJson.scripts.typecheck, "tsc --noEmit");
 });
 
-test("phase 1 shell is present", () => {
+test("phase 5A dashboard is present", () => {
   const page = readFileSync(new URL("../src/app/page.tsx", import.meta.url), "utf8");
 
-  assert.match(page, /Financial Intelligence Foundation/);
-  assert.match(page, /SQLAlchemy models and Alembic migration ready/);
+  assert.match(page, /getDashboardSummary/);
+  assert.match(page, /Needs attention/);
+  assert.match(page, /View all exceptions/);
 });

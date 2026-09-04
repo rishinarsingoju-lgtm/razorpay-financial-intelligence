@@ -11,6 +11,11 @@ body {
   min-height: 100%;
 }
 
+button,
+a {
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
 body {
   margin: 0;
   background: #f7f9fb;
