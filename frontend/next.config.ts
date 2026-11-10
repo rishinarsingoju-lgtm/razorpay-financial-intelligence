@@ -4,20 +4,20 @@ const nextConfig: NextConfig = {
 	async rewrites() {
 		return [
 			{
-				source: "/backend-api/api/exceptions",
+				source: "/api/exceptions",
 				destination: "http://127.0.0.1:8009/api/exceptions/",
 			},
 			{
-				source: "/backend-api/api/settlements",
+				source: "/api/settlements",
 				destination: "http://127.0.0.1:8009/api/settlements/",
 			},
 			{
-				source: "/backend-api/api/transactions",
+				source: "/api/transactions",
 				destination: "http://127.0.0.1:8009/api/transactions/",
 			},
 			{
-				source: "/backend-api/:path*",
-				destination: "http://127.0.0.1:8009/:path*",
+				source: "/api/:path*",
+				destination: "http://127.0.0.1:8009/api/:path*",
 			},
 		];
 	},

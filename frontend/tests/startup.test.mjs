@@ -72,10 +72,11 @@ test("dashboard validation route redirects to the existing overview", () => {
   assert.match(page, /redirect\("\/"\)/);
 });
 
-test("frontend API defaults to the local backend proxy", () => {
+test("frontend API defaults to same-origin and local dev proxies to backend", () => {
   const api = readFileSync(new URL("../src/lib/api.ts", import.meta.url), "utf8");
   const nextConfig = readFileSync(new URL("../next.config.ts", import.meta.url), "utf8");
 
-  assert.match(api, /NEXT_PUBLIC_API_BASE_URL \?\? "\/backend-api"/);
+  assert.match(api, /NEXT_PUBLIC_API_BASE_URL/);
+  assert.doesNotMatch(api, /"\/backend-api"/);
   assert.match(nextConfig, /127\.0\.0\.1:8009/);
 });
