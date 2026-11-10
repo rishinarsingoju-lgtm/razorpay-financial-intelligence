@@ -29,7 +29,12 @@ class Settings(BaseSettings):
     def require_database_url(self) -> str:
         if not self.database_url_configured:
             raise RuntimeError("DATABASE_URL is required to connect to PostgreSQL.")
-        return self.database_url.strip()
+        url = self.database_url.strip()
+        if url.startswith("postgres://"):
+            url = "postgresql+psycopg://" + url[len("postgres://") :]
+        elif url.startswith("postgresql://"):
+            url = "postgresql+psycopg://" + url[len("postgresql://") :]
+        return url
 
 
 @lru_cache

@@ -23,6 +23,14 @@ target_metadata = Base.metadata
 
 
 def get_database_url() -> str:
+    cmd_x = context.get_x_argument(as_dictionary=True)
+    if "db_url" in cmd_x:
+        url = cmd_x["db_url"].strip()
+        if url.startswith("postgres://"):
+            url = "postgresql+psycopg://" + url[len("postgres://") :]
+        elif url.startswith("postgresql://"):
+            url = "postgresql+psycopg://" + url[len("postgresql://") :]
+        return url
     return get_settings().require_database_url()
 
 
