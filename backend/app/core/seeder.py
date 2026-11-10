@@ -5,7 +5,10 @@ import random
 from datetime import date, datetime, timedelta
 from decimal import Decimal
 
-import razorpay
+try:
+    import razorpay
+except Exception:
+    razorpay = None
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -42,6 +45,9 @@ def _seed_data(db: Session, seed: int = 42) -> dict:
     settings = get_settings()
     if not settings.razorpay_key_id or not settings.razorpay_key_secret:
         raise ValueError("Razorpay credentials not found in settings")
+
+    if razorpay is None:
+        raise RuntimeError("razorpay package is not available or could not be loaded")
 
     client = razorpay.Client(
         auth=(settings.razorpay_key_id, settings.razorpay_key_secret)
