@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV !== "production" && !process.env.VERCEL;
+
 const nextConfig: NextConfig = {
 	async rewrites() {
+		// Only enable localhost proxy rewrites during local development
+		if (!isDev) {
+			return [];
+		}
 		return [
 			{
 				source: "/api/exceptions",

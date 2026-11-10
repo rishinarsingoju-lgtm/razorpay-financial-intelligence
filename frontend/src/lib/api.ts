@@ -92,7 +92,8 @@ export type CopilotResponse = {
   referenced_ids: string[];
 };
 
-const apiBaseUrl = (process.env.NEXT_PUBLIC_API_BASE_URL?.trim() || "").replace(/\/+$/, "");
+const rawBaseUrl = (process.env.NEXT_PUBLIC_API_BASE_URL?.trim() || "").replace(/\/+$/, "");
+const apiBaseUrl = rawBaseUrl.includes("backend-api") ? "" : rawBaseUrl;
 
 export async function getDashboardSummary(signal?: AbortSignal): Promise<DashboardSummary> {
   const response = await fetch(`${apiBaseUrl}/api/dashboard/summary`, { signal, cache: "no-store" });
