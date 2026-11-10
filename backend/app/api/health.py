@@ -10,6 +10,7 @@ router = APIRouter(tags=["health"])
 
 
 @router.get("/health")
+@router.get("/api/health")
 def health() -> dict[str, bool | str]:
     settings = get_settings()
     return {
@@ -20,6 +21,7 @@ def health() -> dict[str, bool | str]:
 
 
 @router.get("/health/database")
+@router.get("/api/health/database")
 def database_health() -> dict[str, str]:
     try:
         check_database_connection()
